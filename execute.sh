@@ -1,23 +1,40 @@
 #!/bin/bash
 
 echo "Starting Your Project"
-echo "Give a name for your project"
-read NAME
+ls
+#read NAME
+. env/Scripts/activate
+echo "Virutal environment Activated"
+ls
 
-DJANGO_SETTINGS_MODULE="diversifynow.core.settings"
-DJANGO_WSGI_MODULE="diversifynow.core.wsgi"
+DJANGO_SETTINGS_MODULE="core.settings"
+DJANGO_WSGI_MODULE="core.wsgi"
 echo "Config set"
 
-activate() {
-    "env/Scripts/activate"
-}
-echo "Virutal environment Activated"
+python3 -m pip install --upgrade pip
+echo "Pip upgraded"
 
-cd $diversifynow
+echo "Installing dependencies.."
+pip install -r "requirements.txt"
+echo "Requirements installed"
+
+
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+#pip install -r requirements.txt
+#echo "Requirements are installed" 
 
-pip install -r requirements.txt
-echo "Requirements are installed" 
 
-python3 diversifynow/manage.py runserver
+
+cd diversifynow
+echo "Directory changed" 
+ls
+
+echo "Installing remaining dependencies"
+python3 -m pip install pandasai
+pip install python-dotenv
+
+#python3 manage.py makemigrations
+python3 manage.py migrate
+
+python3 manage.py runserver
