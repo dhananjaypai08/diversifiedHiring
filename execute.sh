@@ -31,7 +31,6 @@ echo "Directory changed"
 ls
 
 echo "Installing remaining dependencies"
-python3 -m pip install pandasai
 pip install python-dotenv
 
 #python3 manage.py makemigrations
