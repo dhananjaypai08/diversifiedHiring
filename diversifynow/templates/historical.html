@@ -1,0 +1,112 @@
+{% extends 'partials/base.html' %}
+
+{% block content %}
+{% load static %}
+
+<div class="jumbotron">
+    {% comment %} <div class="m-3 container justify-content-right">
+        <img src="{% static 'images/image.png' %}" class="d-flex align-self-center image-fluid" alt="Responsive image">
+        <label>
+    </div>  {% endcomment %}
+    
+        <div class="container bg-warning">
+            <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
+                <option selected>Filter</option>
+                <option value="1">Previous CTC</option>
+                <option value="2">Experience</option>
+                <option value="3">Hired</option>
+              </select>
+        {% autoescape off %}
+        {{barplot}}
+        {% endautoescape %}
+        </div>
+        <br>
+        <div class="container mt-3">
+            {% autoescape off %}
+            {{scatterplot}}
+            {% endautoescape %}
+        </div>
+        <div class="container mt-3">
+            {% autoescape off %}
+            {{pieplot}}
+            {% endautoescape %}
+            </div>
+            
+
+</div>
+
+
+<footer class="small bg-dark text-white">
+    <div class="container py-3 py-sm-5">
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+          <h6>Quick links</h6>
+          <ul class="list-unstyled">
+            <li><a href="/">Home</a></li>
+            <li><a href="/historic">Historic Analysis</a></li>
+            <li><a href="/prompt">Chat with Data</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <h6>Information</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Membership</a></li>
+            <li><a href="https://www.linkedin.com/in/dhananjay-pai/">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <h6>Follow us</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+          <address>
+            <strong>Mumbai</strong><br />
+            Chembur<br />
+            Collectors Colony, Maharashtra<br />
+            <abbr title="Telephone">Contact :</abbr
+            ><a href="tel:+917738959108">+91 7738959108</a><br />
+            <abbr title="Mail">Mail :</abbr
+            ><a href="mailto:dhananjay2002pai@gmail.com">dhananjay2002pai@gmail.com</a>
+          </address>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-sm-6 col-md-9">
+          <ul class="list-inline">
+            <li class="list-inline-item">&copy; 2023 Web Company, Inc.</li>
+            <li class="list-inline-item">All rights reserved.</li>
+            <li class="list-inline-item">
+              <a href="#">Terms of use and privacy policy</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/fs-cdn@0.1.0/src/cdn.min.js">
+    function onChange(){
+        console.log('hello');
+        const val = document.getElementById('bar-graph-val').value;
+        if(val==1){
+            let data = "Previous CTC";
+        }
+        else if(val==2){
+            let data = "Experience";
+        }
+        else{
+            let data = "Hired";
+        }
+        fs.writeFile('static/state.txt', data, (err) => {
+            if (err) throw err;
+        })
+    }
+</script>
+
+{% endblock %}
