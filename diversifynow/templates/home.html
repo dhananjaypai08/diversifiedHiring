@@ -2,12 +2,12 @@
 
 {% block content %}
 {% load static %}
-<div class="container border border-dark">
-    <h3 class="m-4 text-break bg-dark text-warning align-center">Welcome to the Gender Diversity Hiring Metrics Dashboard: <br>
-        where historical data comes to life. <br>
+<div class="container border border-dark rounded" style="font-family: Courier New, Courier, monospace;">
+    <h3 class="m-4 text-break bg-dark text-warning align-center">
+        A place where historical data comes to life. <br>
         Explore the ever-evolving dynamics of inclusive hiring.<h3>
-</div>
-    <div class="rounded bg-warning">
+  </div>
+    <div class="rounded" style="background-color: #FFFF00;">
         <div class="card m-5 w-25 d-inline-block bg-warning">
             <img class="card-img-top" src="{% static 'images/image.png' %}" alt="Card image cap">
             <div class="card-body">
@@ -45,8 +45,8 @@
     </div>
 
  
-    <div class="container text-warning rounded mt-3">
-      <div class="card bg-dark mt-2">
+    <div class="container text-white rounded mt-3">
+      <div class="card mt-5" style="background-color: #FF6699; font-family: Palatino Linotype, Book Antiqua, Palatino, serif;">
         <div class="card-body">
           <h4 class="card-title mt-1">Historic View</h4>
           <h6 class="card-subtitle mb-2 text">Analyze Historic Dataset</h6>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <div class="card bg-dark mt-2">
+      <div class="card mt-2" style="background-color: #FF6699; font-family: Palatino Linotype, Book Antiqua, Palatino, serif;">
         <div class="card-body">
           <h4 class="card-title mt-1">Chat with Data</h4>
           <h6 class="card-subtitle mb-2 text">Ask Questions to your data</h6>
@@ -71,7 +71,7 @@
       </div>
     </div>
 
-    <footer class="small bg-dark text-white">
+    <footer class="small bg-dark text-white rounded mt-5">
         <div class="container py-3 py-sm-5">
           <div class="row">
             <div class="col-12 col-sm-6 col-md-3">

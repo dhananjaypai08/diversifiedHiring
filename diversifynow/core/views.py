@@ -152,7 +152,7 @@ def prompt(request):
         if csv_file:
             imported_data = pd.read_csv(csv_file)
             imported_data.to_csv('media/data.csv')
-            print(imported_data.describe())
+            #print(imported_data.describe())
             # imported_data = pd.DataFrame({
             # "country": ["United States", "United Kingdom", "France", "Germany", "Italy", "Spain", "Canada", "Australia", "Japan", "China"],
             # "gdp": [19294482071552, 2891615567872, 2411255037952, 3435817336832, 1745433788416, 1181205135360, 1607402389504, 1490967855104, 4380756541440, 14631844184064],
@@ -172,5 +172,47 @@ def prompt(request):
             print(response, type(response))
             msg["prompt"] = response
         msg['button'] = button
-        msg["imported_data"] = imported_data
+        msg["imported_data"] = imported_data.loc[0:9]
     return render(request, 'prompt.html', msg)
+
+
+def custom(request):
+    msg = {}
+    import_form = True
+    changed = False
+    if request.method == 'POST':
+        csv_file = request.FILES.get('data')
+        num_rows = request.POST.get('num_rows')
+        imported_data = None
+        button = False
+        edit = False
+        if csv_file:
+            imported_data = pd.read_csv(csv_file)
+            imported_data.to_csv('media/custom.csv')
+            button = True
+        elif num_rows:
+            num_rows = int(num_rows)
+            df = pd.read_csv('media/custom.csv')
+            columns = list(df.columns)
+            columns.pop(0)
+            num_columns = len(columns)
+            # data = [request.POST.getlist(f'data[{i}]') for i in range(num_rows)]
+            data = []
+            for i in range(num_rows):
+                lst = request.POST.getlist(f'data[{i}]')
+                lst.pop(0)
+                data.append(lst)
+            imported_data = pd.DataFrame(data, columns=columns)
+            imported_data.to_csv('media/custom.csv')
+            changed=True
+            button=True
+        else:
+            imported_data = pd.read_csv('media/custom.csv')
+            edit = True
+            import_form = False
+        msg['imported_data'] = imported_data   
+        msg['button'] = button
+        msg['edit'] = edit
+        msg['changed'] = changed
+    msg['import_form'] = import_form      
+    return render(request, 'custom.html', msg)
