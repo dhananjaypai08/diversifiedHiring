@@ -14,21 +14,18 @@ echo "Config set"
 python3 -m pip install --upgrade pip
 echo "Pip upgraded"
 
-echo "Installing dependencies.."
-pip install -r "requirements.txt"
-echo "Requirements installed"
-
-
 export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
 export PYTHONPATH=$DJANGODIR:$PYTHONPATH
 #pip install -r requirements.txt
 #echo "Requirements are installed" 
 
-
-
 cd diversifynow
 echo "Directory changed" 
 ls
+
+echo "Installing dependencies.."
+pip install -r "requirements.txt"
+echo "Requirements installed"
 
 echo "Installing remaining dependencies"
 pip install python-dotenv

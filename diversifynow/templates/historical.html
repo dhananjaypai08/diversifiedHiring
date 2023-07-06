@@ -9,7 +9,7 @@
         <label>
     </div>  {% endcomment %}
     
-        <div class="container bg-warning">
+        <div class="container" style="background-color: #000000; width:800px;">
             <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
                 <option selected>Filter</option>
                 <option value="1">Previous CTC</option>
@@ -21,12 +21,12 @@
         {% endautoescape %}
         </div>
         <br>
-        <div class="container mt-3">
+        <div class="container mt-5" style="background-color: #000000; width:800px;">
             {% autoescape off %}
             {{scatterplot}}
             {% endautoescape %}
         </div>
-        <div class="container mt-3">
+        <div class="container mt-5" style="background-color: #000000; width:300px;">
             {% autoescape off %}
             {{pieplot}}
             {% endautoescape %}

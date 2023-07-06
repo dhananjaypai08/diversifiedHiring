@@ -1634,3 +1634,180 @@ plt.close('all')
 ```
 2023-07-05 02:39:47 [INFO] Answer: None
 2023-07-05 02:39:47 [INFO] Executed in: 125.49175190925598s
+2023-07-05 14:13:03 [INFO] Question: scatter plot the above data sets accordingly
+2023-07-05 14:13:03 [INFO] Running PandasAI with openai LLM...
+2023-07-05 14:13:03 [INFO] Prompt ID: e35bb41a-bb3c-4792-9ede-50c2640591fe
+2023-07-05 14:14:06 [INFO] Question: scatter plot the above data sets accordingly
+2023-07-05 14:14:06 [INFO] Running PandasAI with openai LLM...
+2023-07-05 14:14:06 [INFO] Prompt ID: 42784c90-0374-4577-8e99-ef64c765d1e1
+2023-07-05 14:14:12 [INFO] 
+                        Code generated:
+                        ```
+                        import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the dataframe from a csv file
+df = pd.read_csv('data.csv')
+
+# Scatter plot of previous ctc vs Experience
+plt.scatter(df['Experience'], df['previous ctc'])
+plt.xlabel('Experience')
+plt.ylabel('Previous CTC')
+plt.title('Scatter plot of Previous CTC vs Experience')
+plt.show()
+                        ```
+                    
+2023-07-05 14:14:12 [INFO] 
+Code running:
+```
+plt.scatter(df['Experience'], df['previous ctc'])
+plt.xlabel('Experience')
+plt.ylabel('Previous CTC')
+plt.title('Scatter plot of Previous CTC vs Experience')
+plt.show()
+plt.close('all')
+```
+2023-07-05 14:14:31 [INFO] Answer: None
+2023-07-05 14:14:31 [INFO] Executed in: 24.992770195007324s
+2023-07-07 02:29:13 [INFO] Question: Generate a plot for regression model which best handles the gender along with their Experience
+2023-07-07 02:29:13 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:29:13 [INFO] Prompt ID: 277d26f5-c534-4c63-b841-6230a72e5e3c
+2023-07-07 02:29:17 [INFO] 
+                        Code generated:
+                        ```
+                        import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataframe
+df = pd.read_csv('data.csv')
+
+# Plot regression model
+sns.lmplot(x='Experience', y='gender', data=df)
+
+# Show the plot
+plt.show()
+                        ```
+                    
+2023-07-07 02:29:17 [INFO] 
+Code running:
+```
+sns.lmplot(x='Experience', y='gender', data=df)
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:30:20 [INFO] Question: Generate a plot for regression model which best handles the gender along with their Experience
+2023-07-07 02:30:20 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:30:20 [INFO] Prompt ID: 61a09e63-8f57-4c7e-8758-29029fc6532c
+2023-07-07 02:30:20 [INFO] Using cached response
+2023-07-07 02:30:20 [INFO] 
+Code running:
+```
+sns.lmplot(x='Experience', y='gender', data=df)
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:30:46 [INFO] Answer: None
+2023-07-07 02:30:46 [INFO] Executed in: 25.853171825408936s
+2023-07-07 02:31:38 [INFO] Question: Generate a plot using regression model which depicts the diversity of Gender along with their Experience
+2023-07-07 02:31:38 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:31:38 [INFO] Prompt ID: fe23ad31-46d5-458d-b022-6d88d7adfad0
+2023-07-07 02:34:36 [INFO] Question: plot a histogram for gender wise previous ctc
+2023-07-07 02:34:36 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:34:36 [INFO] Prompt ID: a0f60ba4-5d07-4ef9-80f6-5b7edc3be768
+2023-07-07 02:34:36 [INFO] Using cached response
+2023-07-07 02:34:36 [INFO] 
+Code running:
+```
+df.groupby('gender')['previous ctc'].plot(kind='hist', legend=True)
+plt.xlabel('Previous CTC')
+plt.ylabel('Frequency')
+plt.title('Gender wise Previous CTC Histogram')
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:35:40 [INFO] Question: plot a histogram for gender wise previous ctc
+2023-07-07 02:35:40 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:35:40 [INFO] Prompt ID: 7b4fb9c0-faf7-4637-a743-1a1bfe358d29
+2023-07-07 02:35:40 [INFO] Using cached response
+2023-07-07 02:35:40 [INFO] 
+Code running:
+```
+df.groupby('gender')['previous ctc'].plot(kind='hist', legend=True)
+plt.xlabel('Previous CTC')
+plt.ylabel('Frequency')
+plt.title('Gender wise Previous CTC Histogram')
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:36:09 [INFO] Answer: None
+2023-07-07 02:36:09 [INFO] Executed in: 28.721866607666016s
+2023-07-07 02:36:25 [INFO] Question: Generate a plot using regression model which depicts the diversity of Gender along with their Experience
+2023-07-07 02:36:25 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:36:25 [INFO] Prompt ID: f09c23af-80ad-4793-9447-cf208c6d0c0c
+2023-07-07 02:36:29 [INFO] 
+                        Code generated:
+                        ```
+                        import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataframe
+df = pd.read_csv('data.csv')
+
+# Plot the regression model
+sns.lmplot(x='Experience', y='gender', data=df)
+
+# Show the plot
+plt.show()
+                        ```
+                    
+2023-07-07 02:36:29 [INFO] 
+Code running:
+```
+sns.lmplot(x='Experience', y='gender', data=df)
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:36:44 [INFO] error_code=None error_message='Rate limit reached for default-gpt-3.5-turbo in organization org-7bVAOnW3rvtYnU4LXworaiC7 on requests per min. Limit: 3 / min. Please try again in 20s. Contact us through our help center at help.openai.com if you continue to have issues. Please add a payment method to your account to increase your rate limit. Visit https://platform.openai.com/account/billing to add a payment method.' error_param=None error_type=requests message='OpenAI API error received' stream_error=False
+2023-07-07 02:37:20 [INFO] Question: Generate a plot using regression model which depicts the diversity of Gender along with their Experience
+2023-07-07 02:37:20 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:37:20 [INFO] Prompt ID: f5a7b63b-468a-4cbd-9eef-a62753fa01ac
+2023-07-07 02:37:20 [INFO] Using cached response
+2023-07-07 02:37:20 [INFO] 
+Code running:
+```
+sns.lmplot(x='Experience', y='gender', data=df)
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:37:38 [INFO] Answer: 
+2023-07-07 02:37:38 [INFO] Executed in: 18.09612274169922s
+2023-07-07 02:38:51 [INFO] Question: Generate a plot using regression model which plots Gender along with their Experience
+2023-07-07 02:38:51 [INFO] Running PandasAI with openai LLM...
+2023-07-07 02:38:51 [INFO] Prompt ID: 4231abab-f5a6-470e-8e42-f27a02b935e9
+2023-07-07 02:38:55 [INFO] 
+                        Code generated:
+                        ```
+                        import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load the dataframe
+df = pd.read_csv('data.csv')
+
+# Plot the regression model
+sns.lmplot(x='Experience', y='gender', data=df)
+
+# Show the plot
+plt.show()
+                        ```
+                    
+2023-07-07 02:38:55 [INFO] 
+Code running:
+```
+sns.lmplot(x='Experience', y='gender', data=df)
+plt.show()
+plt.close('all')
+```
+2023-07-07 02:39:08 [INFO] error_code=None error_message='Rate limit reached for default-gpt-3.5-turbo in organization org-7bVAOnW3rvtYnU4LXworaiC7 on requests per min. Limit: 3 / min. Please try again in 20s. Contact us through our help center at help.openai.com if you continue to have issues. Please add a payment method to your account to increase your rate limit. Visit https://platform.openai.com/account/billing to add a payment method.' error_param=None error_type=requests message='OpenAI API error received' stream_error=False

@@ -36,8 +36,8 @@ def index(request):
                 break
         if flg == 1:
             try:
-                subject = "Confirmation of Your Registered Mail"
-                message = f"Hello {user.username} \n Your Verification OTP is : {otp}. \n Thank You"
+                subject = "One-Time Password to Login to Your DiversifyNow Account"
+                message = f"Hello {user.username} \n Your Verification OTP is : {otp}. \n Please use the OTP code to complete your login request.\n\n\n Best Regards,\nDiversifyNow"
                 send_mail(subject, message, EMAIL_HOST_USER, [user.email], fail_silently=True)
                 return redirect(email_verify)
             except:
@@ -124,7 +124,7 @@ def historic(request):
         df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
     )
     fig_pie = px.pie(
-        df, values="Experience", names="Name", height=1000, title="Pie Chart"
+        df, values="Experience", names="Gender", height=250, title="Pie Chart"
     )
     
     bar_plot = fig_bar.to_html(full_html=False, include_plotlyjs=False)

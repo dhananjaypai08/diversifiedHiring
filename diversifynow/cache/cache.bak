@@ -19,3 +19,7 @@
 'Using a linear model plot the names of the female candidates that fit the best and their hired status is False', (18432, 378)
 'Using the best regression model and plot the names of the female candidates that fit the best and their hired status is False', (18944, 644)
 'Using any regression model plot the ideal female candidate along with their names to hire whose hired status is False', (19968, 1244)
+'scatter plot the above data sets accordingly', (21504, 351)
+'Generate a plot for regression model which best handles the gender along with their Experience', (22016, 240)
+'Generate a plot using regression model which depicts the diversity of Gender along with their Experience', (22528, 244)
+'Generate a plot using regression model which plots Gender along with their Experience', (23040, 244)

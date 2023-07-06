@@ -30,6 +30,7 @@
             <td>
               <h6>{{col}}</h6>
             </td>
+            
           {% endfor %}
         </tr>
           {% for index, row in imported_data.iterrows %}
@@ -38,10 +39,14 @@
               {% for cell in row %}
                 <td>
                     <input type="text" name="data[{{index}}]" class="form-control" id="formGroupExampleInput2" placeholder="" value="{{cell}}">
+                    
                 </td>
+                
               {% endfor %}
             </tr>
+            
           {% endfor %}
+
       </table>
       
     </form>
@@ -74,4 +79,11 @@
     </div>
     {% endif %}
 </div>
+
+<script type="text/javascript">
+  function delete(id){
+    const data = document.getElementById(`data[${id}]`);
+    console.log(data);
+  }
+</script>
 {% endblock %}
