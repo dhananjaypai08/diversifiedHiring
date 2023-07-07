@@ -13,6 +13,7 @@ from django.core.mail import EmailMessage
 from core.settings import EMAIL_HOST_USER
 import random
 
+
 def index(request):
     if request.session.get('user_id'):
         return redirect(home)
@@ -99,7 +100,7 @@ def home(request):
 
 def historic(request):
     if not request.session.get('user_id'): return redirect(index)
-    msg = {"title": "Home", "description": "This is the landing Page"}
+    msg = {"title": "Dashboard", "description": "This is the landing Page"}
     data = []
     with open('static/MOCK_DATA.csv', mode='r') as file:
         csvfile = csv.reader(file)
@@ -113,18 +114,37 @@ def historic(request):
                     "Experience": lines[5]
                 }
                 data.append(inddata)
-            if ind == 30: break
+
     #print(data)
     df = pd.DataFrame(data)
+    # Calculate Gender Ratio
+    gender_counts = df['Gender'].value_counts()
+    gender_ratio = gender_counts / gender_counts.sum()
+    msg["gender_ratio"] = gender_ratio 
+    # Analyze Hired vs. Not Hired
+    hired_gender_counts = df[df['Hired'] == True]['Gender'].value_counts()
+    not_hired_gender_counts = df[df['Hired'] == False]['Gender'].value_counts()
+    #Gender Distribution for Hired Candidates:
+    msg["hired_counts"] = hired_gender_counts
+    #Gender Distribution for Not Hired Candidates:
+    msg["unhired_counts"] = not_hired_gender_counts
+    # Mean Previous Compensation by gender
+    mean_previous_ctc = df.groupby('Gender')['Previous CTC'].mean()
+    msg["mean_previous_ctc"] = mean_previous_ctc
+    # Experience Levels distribution by gender
+    experience_gender_counts = df.groupby('Gender')['Experience'].value_counts()
+    msg["experience_gender_counts"] = experience_gender_counts
+    #summary stats
+    msg["summary_stats"] = df.describe()
     
     fig_bar = px.bar(
-        df, x="Gender", y=["Previous CTC", "Experience", "Hired"], title="Bar Graph", height=500, hover_data=["Name"]
+        df.loc[1:50], x="Gender", y=["Previous CTC", "Experience", "Hired"], title="Bar Graph", height=500, hover_data=["Name"]
     )
     fig_scatter = px.scatter(
         df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
     )
     fig_pie = px.pie(
-        df, values="Experience", names="Gender", height=250, title="Pie Chart"
+        df.loc[1:30], values="Experience", names="Gender", height=250, title="Pie Chart"
     )
     
     bar_plot = fig_bar.to_html(full_html=False, include_plotlyjs=False)
