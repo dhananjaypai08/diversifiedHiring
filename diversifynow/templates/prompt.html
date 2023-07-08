@@ -1,25 +1,25 @@
 {% extends 'partials/base.html' %}
 {% block content %}
-<div class="container text-white" style="text-align:center; font-family: Times New Roman, Times, serif;">
+<div class="container" style="text-align:center; font-family: Roobert,serif;">
     <form action="/prompt/" method="POST" class="mt-5" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="file" name="data" placeholder="Import Data" required>
-        <button type="submit" class="btn btn-outline-success">Import</button>
+        <button type="submit" class="btn btn-outline text-white" style="background-color: #000000;">Import</button>
     </form>
     {% if button %}
-    <div class="toast fade show bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         {% comment %} <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> {% endcomment %}
       </div>
-      <div class="toast-body">
+      <div class="toast-body rounded" style="border: 2px solid #000000;">
         Showed is only 10 rows of your data. 
         Don't Worry the processing will take entire dataset
       </div>
     </div>
 
-    <div class="container mt-3 text-white">
+    <div class="container mt-3 rounded" style="background-color: #FFFFFF; text-align:center;">
         <table>
             <tr>
               {% for col in imported_data.columns %}
@@ -42,7 +42,7 @@
     <form action="/prompt/" method="POST">
         {% csrf_token %}
         <input type="text" name="prompt" placeholder="Chat with data">
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+        <button type="submit" class="btn btn-outline text-white" style="background-color: #000000;">Submit</button>
     </form>
     {% endif %}
     {% if prompt %}
@@ -54,7 +54,7 @@
     {% endif %}
 </div>
 
-<footer class="small bg-dark text-white rounded mt-5">
+<footer class="small rounded mt-5" style="background-color: #FFCCCC; font-family: Roobert,serif;">
   <div class="container py-3 py-sm-5">
     <div class="row">
       <div class="col-12 col-sm-6 col-md-3">

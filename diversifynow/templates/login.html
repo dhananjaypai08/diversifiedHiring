@@ -1,9 +1,11 @@
 {% extends 'partials/base.html' %}
 {% block content %}
 {% load static %}
-<div class="container col-md-4 rounded align-items-center"  style="background-color: #404040; font-family: Georgia, serif;">
-  <div class="container rounded" style="background-color: #575757;">
-        <div class="col-lg text-white align-items-center">
+<br>
+<br>
+<div class="container col-md-4 rounded align-items-center" style="background-color: #FFFFFF; font-family: Roobert,serif;">
+  <div class="container rounded" style="background-color: #FFCCCC;">
+        <div class="col-lg align-items-center">
           <p> Manager Login </p>
         </div>
   </div>
@@ -21,21 +23,21 @@
     {% endif %}
 <form action='/' method='POST'>
     {% csrf_token %}
-    <div class="form-group text-white">
+    <div class="form-group">
       <label for="formGroupExampleInput2">Email</label>
-      <input type="email" name="email" class="form-control" id="formGroupExampleInput2" placeholder="Enter Email" style="background-color: #404040;" required>
+      <input type="email" name="email" class="form-control" id="formGroupExampleInput2" placeholder="Enter Email" style="background-color: #FFFFFF;" required>
     </div>
 
-    <div class="form-group text-white mt-2">
+    <div class="form-group mt-2">
         <label for="formGroupExampleInput2">Password</label>
-        <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="Enter Password" style="background-color: #404040;" required>
+        <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="Enter Password" style="background-color: #FFFFFF;" required>
     </div>
-    <button type="submit" class="btn-outline mt-2 text-white" style="background-color: #424242;">Submit</button> &nbsp;
+    <button type="submit" class="btn-outline mt-2 text-white" style="background-color: #000000;">Submit</button> &nbsp;
   </form>
-  <a type="button" class="btn btn-link mt-2 text-white" style="background-color: #757575;" href="/register">Not Registered</a>
+  <a type="button" class="btn btn-link mt-2 text-white" style="background-color: #303030;" href="/register">Not Registered</a>
 </div>
 
-<footer class="small bg-dark text-white rounded mt-5">
+<footer class="small rounded mt-5" style="background-color: #FFE6EE; font-family: Roobert,serif;">
   <div class="container py-3 py-sm-5">
     <div class="row">
       

@@ -1,9 +1,9 @@
 {% extends 'partials/base.html' %}
 {% block content %}
 
-<div class="container col-md-4 rounded align-items-center" style="background-color: #404040; font-family: Georgia, serif;">
-  <div class="container rounded" style="background-color: #575757;">
-    <div class="col-lg text-white align-items-center">
+<div class="container col-md-4 rounded align-items-center" style="background-color: #FFFFFF; font-family: Roobert,serif;">
+  <div class="container rounded" style="background-color: #FFCCCC;">
+    <div class="col-lg align-items-center">
       <p> Enter OTP </p>
     </div>
 </div>
@@ -24,15 +24,15 @@
         {% csrf_token %}
         
     
-        <div class="form-group text-white">
+        <div class="form-group">
             <label for="formGroupExampleInput2">One Time Password</label>
-            <input type="password" name="otp" class="form-control" id="formGroupExampleInput2" placeholder="Enter OTP" style="background-color: #404040;" required>
+            <input type="password" name="otp" class="form-control" id="formGroupExampleInput2" placeholder="Enter OTP" style="background-color: #FFFFFF;" required>
         </div>
-        <button type="submit" class="btn-outline mt-2 text-white" style="background-color: #424242;">Submit</button> &nbsp;
+        <button type="submit" class="btn-outline mt-2 text-white" style="background-color: #000000;">Submit</button> &nbsp;
       </form>
     </div>
 
-    <footer class="small bg-dark text-white rounded mt-5">
+    <footer class="small rounded mt-5" style="background-color: #FFE6EE; font-family: Roobert,serif;">
         <div class="container py-3 py-sm-5">
           <div class="row">
             

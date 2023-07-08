@@ -3,9 +3,8 @@
 {% block content %}
 {% load static %}
 <div class="container">
-  <h6 class="m-4 text-break text-white align-center" style="font-family: Courier New, Courier, monospace;">
-    A place where historical data comes to life. <br>
-    Explore the ever-evolving dynamics of inclusive hiring.
+  <h6 class="m-4 text-break align-center" style="font-family: Roobert,serif; font-weight: 700;">
+    Historic Analysis
 <h6>
 
 </div> 
@@ -15,7 +14,7 @@
         <label>
     </div>  {% endcomment %}
     
-        <div class="container" style="background-color: #000000; width:800px;">
+        <div class="container rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
             <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
                 <option selected>Filter</option>
                 <option value="1">Previous CTC</option>
@@ -27,12 +26,12 @@
         {% endautoescape %}
         </div>
         <br>
-        <div class="container mt-5" style="background-color: #000000; width:800px;">
+        <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
             {% autoescape off %}
             {{scatterplot}}
             {% endautoescape %}
         </div>
-        <div class="container mt-5" style="background-color: #000000; width:300px;">
+        <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:300px;border: 3px solid #000000;">
             {% autoescape off %}
             {{pieplot}}
             {% endautoescape %}
@@ -42,7 +41,7 @@
 </div>
 
 
-<footer class="small bg-dark text-white rounded mt-5">
+<footer class="small rounded mt-5" style="background-color: #FFCCCC; font-family: Roobert,serif;>
     <div class="container py-3 py-sm-5">
       <div class="row">
         <div class="col-12 col-sm-6 col-md-3">

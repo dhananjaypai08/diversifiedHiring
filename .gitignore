@@ -1,4 +1,4 @@
 env/
-api/__pycache__/
+diversifynow/api/__pycache__/
 __pycache__/
-core/__pycache__/
+diversifynow/core/__pycache__/settings.cpython-310.pyc
