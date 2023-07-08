@@ -8,21 +8,28 @@
 <h6>
 
 </div> 
-<div class="jumbotron">
+<div class="jumbotron" style="font-family: Roobert,serif;">
     {% comment %} <div class="m-3 container justify-content-right">
         <img src="{% static 'images/image.png' %}" class="d-flex align-self-center image-fluid" alt="Responsive image">
         <label>
     </div>  {% endcomment %}
-    
-        <div class="container rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
-            <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
+
+  <div class="d-inline card mt-5 rounded" style="background-color: #FFFFFF; width:800px;">
+    <div class="card-body">
+      <h4 class="card-title" style="font-size: 23px; font-weight: 700;">{{total_emp}}</h4>
+      <h6 class="card-subtitle mb-2">Total Employees</h6>
+    </div>
+  </div>
+
+        <div class="container rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000; width: 500px;">
+            {% comment %} <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
                 <option selected>Filter</option>
                 <option value="1">Previous CTC</option>
                 <option value="2">Experience</option>
                 <option value="3">Hired</option>
-              </select>
+              </select> {% endcomment %}
         {% autoescape off %}
-        {{barplot}}
+        {{fig_total_attritionbygender}}
         {% endautoescape %}
         </div>
         <br>

@@ -102,57 +102,99 @@ def historic(request):
     if not request.session.get('user_id'): return redirect(index)
     msg = {"title": "Dashboard", "description": "This is the landing Page"}
     data = []
-    with open('static/MOCK_DATA.csv', mode='r') as file:
-        csvfile = csv.reader(file)
-        for ind, lines in enumerate(csvfile):
-            if ind != 0:
-                inddata = {
-                    "Name": lines[1],
-                    "Hired": lines[2],
-                    "Previous CTC": lines[3],
-                    "Gender": lines[4],
-                    "Experience": lines[5]
-                }
-                data.append(inddata)
+    # with open('static/HR.csv', mode='r') as file:
+    #     csvfile = csv.reader(file)
+    #     for ind, lines in enumerate(csvfile):
+    #         if ind != 0:
+    #             inddata = {
+    #                 "Name": lines[1],
+    #                 "Hired": lines[2],
+    #                 "Previous CTC": lines[3],
+    #                 "Gender": lines[8],
+    #                 "Domain": lines[9],
+    #                 "Experience": lines[5]
+    #             }
+    #             data.append(inddata)
 
     #print(data)
-    df = pd.DataFrame(data)
-    # Calculate Gender Ratio
+    df = pd.read_csv('static/HR.csv')
+    # Calculate Total Employees
+    total_emp = df[df.columns[0]].count()
+    msg["total_emp"] = total_emp
+    
+    
+    #Calculate Gender Ratio
     gender_counts = df['Gender'].value_counts()
-    gender_ratio = gender_counts / gender_counts.sum()
-    msg["gender_ratio"] = gender_ratio 
-    # Analyze Hired vs. Not Hired
-    hired_gender_counts = df[df['Hired'] == True]['Gender'].value_counts()
-    not_hired_gender_counts = df[df['Hired'] == False]['Gender'].value_counts()
-    #Gender Distribution for Hired Candidates:
-    msg["hired_counts"] = hired_gender_counts
-    #Gender Distribution for Not Hired Candidates:
-    msg["unhired_counts"] = not_hired_gender_counts
-    # Mean Previous Compensation by gender
-    mean_previous_ctc = df.groupby('Gender')['Previous CTC'].mean()
-    msg["mean_previous_ctc"] = mean_previous_ctc
-    # Experience Levels distribution by gender
-    experience_gender_counts = df.groupby('Gender')['Experience'].value_counts()
-    msg["experience_gender_counts"] = experience_gender_counts
-    #summary stats
+    count_male = gender_counts['Male']
+    count_female = gender_counts['Female']
+   
+    # Total Attrition
+    attrition = df['Attrition'].value_counts()['Yes']
+    msg["attrition"] = attrition
+    attrition_counts = df.groupby(['Gender', 'Attrition']).size().reset_index(name='Count')
+    male_attrition = attrition_counts.loc[3, "Count"]
+    female_attrition = attrition_counts.loc[1, "Count"]
+    # Attrition Ratio
+    attrition_ratio = format(((male_attrition+female_attrition)/total_emp)*100, ".3f")
+    msg["attrition_ratio"] = attrition_ratio
+    
+    # Department wise male and Female count
+    counts = df.groupby(['Department', 'Gender'])['Gender'].count()
+    hr_male, hr_female = counts["HR"]["Male"], counts["HR"]["Female"]
+    rd_male, rd_female = counts["R&D"]["Male"], counts["R&D"]["Female"]
+    sales_male, sales_female = counts["Sales"]["Male"], counts["Sales"]["Female"]
+    
+    
+    
+    
+    # Summary stats
     msg["summary_stats"] = df.describe()
     
-    fig_bar = px.bar(
-        df.loc[1:50], x="Gender", y=["Previous CTC", "Experience", "Hired"], title="Bar Graph", height=500, hover_data=["Name"]
+    # Gender ratio pie chart
+    fig_gender_ratio = px.pie(
+        df, values=[count_male, count_female], names=["Male", "Female"], height=250, title="Gender Ratio"
     )
-    fig_scatter = px.scatter(
-        df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
+    pie_plot = fig_gender_ratio.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_gender_ratio"] = pie_plot
+    # HR ratio pie chart
+    fig_hr_ratio = px.pie(
+        df, values=[hr_male, hr_female], names=["HR Males", "HR Females"], height=250, title="HR"
     )
-    fig_pie = px.pie(
-        df.loc[1:30], values="Experience", names="Gender", height=250, title="Pie Chart"
+    pie_plot = fig_hr_ratio.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_hr_ratio"] = pie_plot
+    # R&D pie chart
+    fig_rd_ratio = px.pie(
+        df, values=[rd_male, rd_female], names=["R&D Males", "R&D Females"], height=250, title="R&D"
     )
+    pie_plot = fig_rd_ratio.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_rd_ratio"] = pie_plot
+    # Sales pie chart
+    fig_sales_ratio = px.pie(
+        df, values=[sales_male, sales_female], names=["Sales Males", "Sales Females"], height=250, title="Sales"
+    )
+    pie_plot = fig_sales_ratio.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_sales_ratio"] = pie_plot
+    # Total attrition by gender
+    fig_total_attritionbygender = px.bar(
+        attrition_counts, x="Gender", y="Count", color="Attrition", barmode='group', title="Total Attrition by Gender", height=500
+    )
+    bar_plot = fig_total_attritionbygender.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_total_attritionbygender"] = bar_plot
     
-    bar_plot = fig_bar.to_html(full_html=False, include_plotlyjs=False)
-    scatter_plot = fig_scatter.to_html(full_html=True, include_plotlyjs=False)
-    pie_plot = fig_pie.to_html(full_html=False, include_plotlyjs=False)
-    msg["barplot"] = bar_plot
-    msg["scatterplot"] = scatter_plot
-    msg["pieplot"] = pie_plot
+    
+    # fig_scatter = px.scatter(
+    #     df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
+    # )
+    # fig_pie = px.pie(
+    #     df.loc[1:30], values="Experience", names="Gender", height=250, title="Pie Chart"
+    # )
+    
+    
+    # scatter_plot = fig_scatter.to_html(full_html=True, include_plotlyjs=False)
+    
+    
+    # msg["scatterplot"] = scatter_plot
+    
     
     return render(request, 'historical.html', msg)
 
