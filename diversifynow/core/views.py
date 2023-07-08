@@ -181,6 +181,32 @@ def historic(request):
     bar_plot = fig_total_attritionbygender.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_total_attritionbygender"] = bar_plot
     
+    import numpy as np
+    #import plotly.express as px
+    import plotly.graph_objects as go
+    from sklearn.neighbors import KNeighborsRegressor
+
+    print(df)
+    X = df["Monthly Income"].values.reshape(-1, 1)
+    print(X)
+    x_range = np.linspace(X.min(), X.max(), 100)
+
+    # Model #1
+    knn_dist = KNeighborsRegressor(10, weights='distance')
+    knn_dist.fit(X, df["Years At Company"])
+    y_dist = knn_dist.predict(x_range.reshape(-1, 1))
+
+    # Model #2
+    knn_uni = KNeighborsRegressor(10, weights='uniform')
+    knn_uni.fit(X, df["Years At Company"])
+    y_uni = knn_uni.predict(x_range.reshape(-1, 1))
+
+    fig = px.scatter(df, x='Monthly Income', y='Years At Company', color='Gender', opacity=0.65)
+    fig.add_traces(go.Scatter(x=x_range, y=y_uni, name='Weights: Uniform'))
+    fig.add_traces(go.Scatter(x=x_range, y=y_dist, name='Weights: Distance'))
+    knnplot = fig.to_html(full_html=True, include_plotlyjs=False)
+    msg["knnplot"] = knnplot
+    
     
     # fig_scatter = px.scatter(
     #     df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
@@ -215,11 +241,6 @@ def prompt(request):
             imported_data = pd.read_csv(csv_file)
             imported_data.to_csv('media/data.csv')
             #print(imported_data.describe())
-            # imported_data = pd.DataFrame({
-            # "country": ["United States", "United Kingdom", "France", "Germany", "Italy", "Spain", "Canada", "Australia", "Japan", "China"],
-            # "gdp": [19294482071552, 2891615567872, 2411255037952, 3435817336832, 1745433788416, 1181205135360, 1607402389504, 1490967855104, 4380756541440, 14631844184064],
-            # "happiness_index": [6.94, 7.16, 6.66, 7.07, 6.38, 6.4, 7.23, 7.22, 5.87, 5.12]
-            # })
             button = True
         
         if prompt:
@@ -236,8 +257,7 @@ def prompt(request):
         msg['button'] = button
         msg["imported_data"] = imported_data.loc[0:9]
     return render(request, 'prompt.html', msg)
-
-
+    
 def custom(request):
     msg = {}
     import_form = True

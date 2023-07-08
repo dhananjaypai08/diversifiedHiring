@@ -1811,3 +1811,92 @@ plt.show()
 plt.close('all')
 ```
 2023-07-07 02:39:08 [INFO] error_code=None error_message='Rate limit reached for default-gpt-3.5-turbo in organization org-7bVAOnW3rvtYnU4LXworaiC7 on requests per min. Limit: 3 / min. Please try again in 20s. Contact us through our help center at help.openai.com if you continue to have issues. Please add a payment method to your account to increase your rate limit. Visit https://platform.openai.com/account/billing to add a payment method.' error_param=None error_type=requests message='OpenAI API error received' stream_error=False
+2023-07-09 02:33:00 [ERROR] Internal Server Error: /prompt/
+Traceback (most recent call last):
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view core.views.prompt didn't return an HttpResponse object. It returned None instead.
+2023-07-09 02:33:32 [INFO] C:\Users\dhana\coding\Personal Projects\DiversifyNow\diversifynow\core\views.py changed, reloading.
+2023-07-09 02:33:46 [ERROR] Internal Server Error: /prompt/
+Traceback (most recent call last):
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\core\handlers\exception.py", line 56, in inner
+    response = get_response(request)
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\utils\deprecation.py", line 136, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\dhana\coding\Personal Projects\DiversifyNow\env\lib\site-packages\django\middleware\clickjacking.py", line 27, in process_response
+    if response.get("X-Frame-Options") is not None:
+AttributeError: module 'streamlit' has no attribute 'get'
+2023-07-09 02:34:42 [INFO] C:\Users\dhana\coding\Personal Projects\DiversifyNow\diversifynow\core\views.py changed, reloading.
+2023-07-09 02:37:36 [INFO] Question: Plot a pie chart of gender wise attrition
+2023-07-09 02:37:36 [INFO] Running PandasAI with openai LLM...
+2023-07-09 02:37:36 [INFO] Prompt ID: 3f8381c7-9d32-4e5f-86cd-a3e1ca34b90e
+2023-07-09 02:37:43 [INFO] 
+                        Code generated:
+                        ```
+                        import matplotlib.pyplot as plt
+
+# Group the data by gender and attrition
+gender_attrition = df.groupby(['Gender', 'Attrition']).size().unstack()
+
+# Plot the pie chart
+gender_attrition.plot(kind='pie', subplots=True, autopct='%1.1f%%', startangle=90)
+
+plt.axis('equal')
+plt.legend(loc='upper right')
+plt.title('Gender Wise Attrition')
+plt.show()
+                        ```
+                    
+2023-07-09 02:37:43 [INFO] 
+Code running:
+```
+gender_attrition = df.groupby(['Gender', 'Attrition']).size().unstack()
+gender_attrition.plot(kind='pie', subplots=True, autopct='%1.1f%%',
+    startangle=90)
+plt.axis('equal')
+plt.legend(loc='upper right')
+plt.title('Gender Wise Attrition')
+plt.show()
+plt.close('all')
+```
+2023-07-09 02:39:31 [INFO] Answer: None
+2023-07-09 02:39:31 [INFO] Executed in: 115.511953830719s
+2023-07-09 02:41:02 [INFO] Question: Plot a cluster for gender wise distribution across Departments
+2023-07-09 02:41:02 [INFO] Running PandasAI with openai LLM...
+2023-07-09 02:41:02 [INFO] Prompt ID: af67cbaf-67a8-42ba-a093-54bc2797609f
+2023-07-09 02:41:09 [INFO] 
+                        Code generated:
+                        ```
+                        import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Group the data by Gender and Department and count the number of occurrences
+gender_dept_counts = df.groupby(['Gender', 'Department']).size().reset_index(name='Count')
+
+# Plot the cluster using a bar plot
+sns.barplot(x='Department', y='Count', hue='Gender', data=gender_dept_counts)
+plt.title('Gender Wise Distribution Across Departments')
+plt.xlabel('Department')
+plt.ylabel('Count')
+plt.show()
+                        ```
+                    
+2023-07-09 02:41:09 [INFO] 
+Code running:
+```
+gender_dept_counts = df.groupby(['Gender', 'Department']).size().reset_index(
+    name='Count')
+sns.barplot(x='Department', y='Count', hue='Gender', data=gender_dept_counts)
+plt.title('Gender Wise Distribution Across Departments')
+plt.xlabel('Department')
+plt.ylabel('Count')
+plt.show()
+plt.close('all')
+```
+2023-07-09 02:42:24 [INFO] Answer: None
+2023-07-09 02:42:24 [INFO] Executed in: 81.8174045085907s
+2023-07-09 02:45:03 [INFO] C:\Users\dhana\coding\Personal Projects\DiversifyNow\diversifynow\core\views.py changed, reloading.

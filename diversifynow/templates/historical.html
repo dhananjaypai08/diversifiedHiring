@@ -21,6 +21,14 @@
     </div>
   </div>
 
+  <div class="d-inline card mt-5 rounded" style="background-color: #FFFFFF; width:800px;">
+    <div class="card-body">
+      <h4 class="card-title" style="font-size: 23px; font-weight: 700;">{{attrition_ratio}}%</h4>
+      <h6 class="card-subtitle mb-2">Attrition Ratio</h6>
+    </div>
+  </div>
+
+
         <div class="container rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000; width: 500px;">
             {% comment %} <select onchange="onChange()" class="form-select" aria-label="Default select example" id="bar-graph-val">
                 <option selected>Filter</option>
@@ -28,21 +36,36 @@
                 <option value="2">Experience</option>
                 <option value="3">Hired</option>
               </select> {% endcomment %}
-        {% autoescape off %}
-        {{fig_total_attritionbygender}}
-        {% endautoescape %}
+        
+        {{fig_total_attritionbygender|safe}}
+        
         </div>
         <br>
         <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
-            {% autoescape off %}
-            {{scatterplot}}
-            {% endautoescape %}
+            {{fig_gender_ratio|safe}}
+            
         </div>
         <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:300px;border: 3px solid #000000;">
-            {% autoescape off %}
+            {% comment %} {% autoescape off %}
             {{pieplot}}
-            {% endautoescape %}
+            {% endautoescape %} {% endcomment %}
+            {{fig_hr_ratio|safe}}
             </div>
+          
+            <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
+              {{fig_rd_ratio|safe}}
+              
+          </div>
+
+          <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
+            {{fig_sales_ratio|safe}}
+            
+        </div>
+
+        <div class="container mt-5 rounded" style="background-color: #FFFFFF; width:800px; border: 3px solid #000000;">
+          {{knnplot|safe}}
+          
+      </div>
             
 
 </div>

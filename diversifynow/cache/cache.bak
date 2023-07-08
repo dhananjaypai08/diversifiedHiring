@@ -23,3 +23,5 @@
 'Generate a plot for regression model which best handles the gender along with their Experience', (22016, 240)
 'Generate a plot using regression model which depicts the diversity of Gender along with their Experience', (22528, 244)
 'Generate a plot using regression model which plots Gender along with their Experience', (23040, 244)
+'Plot a pie chart of gender wise attrition', (23552, 363)
+'Plot a cluster for gender wise distribution across Departments', (24064, 469)
