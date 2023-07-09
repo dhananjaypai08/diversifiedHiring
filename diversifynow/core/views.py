@@ -156,30 +156,73 @@ def historic(request):
     )
     pie_plot = fig_gender_ratio.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_gender_ratio"] = pie_plot
+    
     # HR ratio pie chart
     fig_hr_ratio = px.pie(
         df, values=[hr_male, hr_female], names=["HR Males", "HR Females"], height=250, title="HR"
     )
     pie_plot = fig_hr_ratio.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_hr_ratio"] = pie_plot
+    
     # R&D pie chart
     fig_rd_ratio = px.pie(
         df, values=[rd_male, rd_female], names=["R&D Males", "R&D Females"], height=250, title="R&D"
     )
     pie_plot = fig_rd_ratio.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_rd_ratio"] = pie_plot
+    
     # Sales pie chart
     fig_sales_ratio = px.pie(
         df, values=[sales_male, sales_female], names=["Sales Males", "Sales Females"], height=250, title="Sales"
     )
     pie_plot = fig_sales_ratio.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_sales_ratio"] = pie_plot
+    
     # Total attrition by gender
     fig_total_attritionbygender = px.bar(
         attrition_counts, x="Gender", y="Count", color="Attrition", barmode='group', title="Total Attrition by Gender", height=500
     )
     bar_plot = fig_total_attritionbygender.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_total_attritionbygender"] = bar_plot
+
+    #Box Plot
+    fig_pay_gap = px.box(df, x='Gender', y='Monthly Income', title='Salary Distribution by Gender', height=500)
+    box_plot = fig_pay_gap.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_pay_gap"] = box_plot
+    
+
+    # Group the data by job role and gender, and calculate the count
+    job_role_by_gender = df.groupby(['Job Role', 'Gender']).size().unstack()
+    # Reset the index to convert 'Job Role' to a regular column
+    job_role_by_gender = job_role_by_gender.reset_index()
+    # Melt the dataframe to create separate columns for male and female counts
+    job_role_by_gender = job_role_by_gender.melt(id_vars='Job Role', value_vars=['Male', 'Female'],
+                                             var_name='Gender', value_name='Count')
+    # Create a count plot
+    fig_job_distribution = px.bar(job_role_by_gender, x='Count', y='Job Role', color='Gender', orientation='h',
+             title='Gender Distribution by Job Role', labels={'Count': 'Count', 'Job Role': 'Job Role'})
+    bar_plot = fig_job_distribution.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_job_distribution"] = bar_plot
+
+    # Group the data by job satisfaction status and gender, and calculate the count
+    promotion_by_gender = df.groupby(['Job Satisfaction Status', 'Gender']).size().unstack()
+    # Reset the index to convert 'Job Satisfaction Status' to a regular column
+    promotion_by_gender = promotion_by_gender.reset_index()
+    # Melt the dataframe to create separate columns for male and female counts
+    promotion_by_gender = promotion_by_gender.melt(id_vars='Job Satisfaction Status', value_vars=['Male', 'Female'],
+                                               var_name='Gender', value_name='Count')
+    # Create a count plot
+    fig_promotion_distribution = px.bar(promotion_by_gender, x='Count', y='Job Satisfaction Status', color='Gender', orientation='h',
+             title='Promotion Status by Gender', labels={'Count': 'Count', 'Job Satisfaction Status': 'Job Satisfaction Status'})
+    bar_plot = fig_promotion_distribution.to_html(full_html=False, include_plotlyjs=False)
+    msg["fig_promotion_distribution"] = bar_plot
+
+
+
+
+
+
+    
     
     import numpy as np
     #import plotly.express as px
