@@ -25,7 +25,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('logout/', views.logout, name='logout'),
     path('verify/', views.email_verify, name='emailverify'),
-    path('historic/', views.historic, name='home'),
+    #path('historic/', views.historic, name='home'),
     path('prompt/', views.prompt, name='prompt'),
     path('custom/', views.custom, name='custom'),
     path('api/', include('api.urls')),

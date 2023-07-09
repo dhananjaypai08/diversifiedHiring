@@ -12,6 +12,10 @@ from django.core.mail import send_mail
 from django.core.mail import EmailMessage
 from core.settings import EMAIL_HOST_USER
 import random
+import numpy as np
+import plotly.graph_objects as go
+from sklearn.neighbors import KNeighborsRegressor
+
 
 
 def index(request):
@@ -38,7 +42,7 @@ def index(request):
         if flg == 1:
             try:
                 subject = "One-Time Password to Login to Your DiversifyNow Account"
-                message = f"Hello {user.username} \n Your Verification OTP is : {otp}. \n Please use the OTP code to complete your login request.\n\n\n Best Regards,\nDiversifyNow"
+                message = f"Hello {user.username} \n Your Verification OTP is : {otp}. \n Please use the OTP code to complete your login request.\n\n\n Best Regards,\n DiversifyNow"
                 send_mail(subject, message, EMAIL_HOST_USER, [user.email], fail_silently=True)
                 return redirect(email_verify)
             except:
@@ -63,7 +67,6 @@ def email_verify(request):
         if user_data['data'].value == hash:
             del request.session['on_hold']
             request.session['user_id'] = user_data['id'].value
-            print(request.session.get('on_hold'), request.session.get('user_id'))
             return redirect(index)
         msg['status'] = -1
 
@@ -90,15 +93,15 @@ def logout(request):
     return redirect(index)
 
 
+# def home(request):
+#     if not request.session.get('user_id'):
+#         return redirect(index)
+#     msg = {}
+#     msg["title"] = "Dashboard"
+#     return render(request, 'home.html',msg)
+
+
 def home(request):
-    if not request.session.get('user_id'):
-        return redirect(index)
-    msg = {}
-    msg["title"] = "Dashboard"
-    return render(request, 'home.html',msg)
-
-
-def historic(request):
     if not request.session.get('user_id'): return redirect(index)
     msg = {"title": "Dashboard", "description": "This is the landing Page"}
     data = []
@@ -152,7 +155,7 @@ def historic(request):
     
     # Gender ratio pie chart
     fig_gender_ratio = px.pie(
-        df, values=[count_male, count_female], names=["Male", "Female"], height=250, title="Gender Ratio"
+        df, values=[count_male, count_female], names=["Male", "Female"], height=500, title="Gender Ratio"
     )
     pie_plot = fig_gender_ratio.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_gender_ratio"] = pie_plot
@@ -217,21 +220,8 @@ def historic(request):
     bar_plot = fig_promotion_distribution.to_html(full_html=False, include_plotlyjs=False)
     msg["fig_promotion_distribution"] = bar_plot
 
-
-
-
-
-
     
-    
-    import numpy as np
-    #import plotly.express as px
-    import plotly.graph_objects as go
-    from sklearn.neighbors import KNeighborsRegressor
-
-    print(df)
     X = df["Monthly Income"].values.reshape(-1, 1)
-    print(X)
     x_range = np.linspace(X.min(), X.max(), 100)
 
     # Model #1
@@ -244,7 +234,7 @@ def historic(request):
     knn_uni.fit(X, df["Years At Company"])
     y_uni = knn_uni.predict(x_range.reshape(-1, 1))
 
-    fig = px.scatter(df, x='Monthly Income', y='Years At Company', color='Gender', opacity=0.65)
+    fig = px.scatter(df, x='Monthly Income', y='Years At Company', color='Gender', title="Gender wise KNN Clustering", opacity=0.65)
     fig.add_traces(go.Scatter(x=x_range, y=y_uni, name='Weights: Uniform'))
     fig.add_traces(go.Scatter(x=x_range, y=y_dist, name='Weights: Distance'))
     knnplot = fig.to_html(full_html=True, include_plotlyjs=False)
