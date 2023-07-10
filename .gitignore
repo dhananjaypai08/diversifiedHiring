@@ -2,3 +2,5 @@ env/
 diversifynow/api/__pycache__/
 __pycache__/
 diversifynow/core/__pycache__/settings.cpython-310.pyc
+diversifynow/.env
+.env/

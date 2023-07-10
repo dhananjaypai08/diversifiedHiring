@@ -15,6 +15,7 @@ import random
 import numpy as np
 import plotly.graph_objects as go
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.linear_model import LogisticRegression
 
 
 
@@ -240,6 +241,55 @@ def home(request):
     knnplot = fig.to_html(full_html=True, include_plotlyjs=False)
     msg["knnplot"] = knnplot
     
+    # 3D Scatter Plot
+    fig = px.scatter_3d(df[1:100], x='Years At Company', y='Monthly Income', z='Total Working Years', color='Gender')
+    fig.update_layout(
+        scene=dict(
+            xaxis_title='Years At Company',
+            yaxis_title='Monthly Income',
+            zaxis_title='Total Working Years',
+        ),
+        title='Gender Diversity Hiring Imbalances',
+    )
+    scatter3d_plot = fig.to_html(full_html=True, include_plotlyjs=False)
+    msg["scatter3dplot"] = scatter3d_plot
+    
+    # Logistic Regression Model
+    X = df[['Age', 'Monthly Income']][1:200]
+    y = df['Department'][1:200]
+    # Encode the target variable if it contains string values
+    from sklearn.preprocessing import LabelEncoder
+    label_encoder = LabelEncoder()
+    y = label_encoder.fit_transform(y)
+
+    # Fit a logistic regression model
+    model = LogisticRegression()
+    model.fit(X, y)
+
+    # Generate grid points to create a decision boundary plot
+    x1_min, x1_max = X['Age'].min() - 1, X['Age'].max() + 1
+    x2_min, x2_max = X['Monthly Income'].min() - 1, X['Monthly Income'].max() + 1
+    xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, 0.1), np.arange(x2_min, x2_max, 100))
+    Z = model.predict(np.c_[xx1.ravel(), xx2.ravel()])
+    Z = Z.reshape(xx1.shape)
+
+    # Create a scatter plot of the data points
+    fig = go.Figure(data=go.Scatter(x=X['Age'], y=X['Monthly Income'], mode='markers', marker=dict(color=y)))
+
+    # Add a contour plot for the decision boundary
+    fig.add_trace(go.Contour(x=xx1[0], y=xx2[:, 0], z=Z, colorscale='Viridis', showscale=False, opacity=0.8))
+
+    # Customize the plot layout
+    fig.update_layout(
+        title="Logistic Regression Decision Boundary",
+        xaxis_title="Age",
+        yaxis_title="Monthly Income",
+    )
+    logistic_plot = fig.to_html(full_html=True, include_plotlyjs=False)
+    msg["logisticplot"] = logistic_plot
+    
+
+    
     
     # fig_scatter = px.scatter(
     #     df, x="Experience", y="Previous CTC", color="Gender", height=500, hover_data=["Name"], title="Scatter Plot"
@@ -291,6 +341,7 @@ def prompt(request):
         msg["imported_data"] = imported_data.loc[0:9]
     return render(request, 'prompt.html', msg)
     
+
 def custom(request):
     msg = {}
     import_form = True
