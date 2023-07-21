@@ -25,3 +25,4 @@
 'Generate a plot using regression model which plots Gender along with their Experience', (23040, 244)
 'Plot a pie chart of gender wise attrition', (23552, 363)
 'Plot a cluster for gender wise distribution across Departments', (24064, 469)
+'Plot a histogram for Gender wise Distance From Home', (24576, 867)

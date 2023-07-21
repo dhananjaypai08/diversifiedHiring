@@ -1900,3 +1900,81 @@ plt.close('all')
 2023-07-09 02:42:24 [INFO] Answer: None
 2023-07-09 02:42:24 [INFO] Executed in: 81.8174045085907s
 2023-07-09 02:45:03 [INFO] C:\Users\dhana\coding\Personal Projects\DiversifyNow\diversifynow\core\views.py changed, reloading.
+2023-07-21 10:10:50 [INFO] Question: Plot a histogram for Gender wise Distance From Home
+2023-07-21 10:10:50 [INFO] Running PandasAI with openai LLM...
+2023-07-21 10:10:50 [INFO] Prompt ID: 6cc40b14-3e67-446d-a66d-047ff9e9fc80
+2023-07-21 10:11:08 [INFO] 
+                        Code generated:
+                        ```
+                        import matplotlib.pyplot as plt
+
+# Filter the dataframe for Gender and Distance From Home columns
+gender_distance = df[['Gender', 'Distance From Home']]
+
+# Group the data by Gender and calculate the mean distance from home for each gender
+gender_distance_mean = gender_distance.groupby('Gender')['Distance From Home'].mean()
+
+# Plot the histogram
+plt.hist(gender_distance['Distance From Home'], bins=10, alpha=0.5, label='All')
+plt.hist(gender_distance[gender_distance['Gender'] == 'Male']['Distance From Home'], bins=10, alpha=0.5, label='Male')
+plt.hist(gender_distance[gender_distance['Gender'] == 'Female']['Distance From Home'], bins=10, alpha=0.5, label='Female')
+
+# Add labels and title
+plt.xlabel('Distance From Home')
+plt.ylabel('Frequency')
+plt.title('Gender wise Distance From Home')
+
+# Add legend
+plt.legend()
+
+# Show the plot
+plt.show()
+                        ```
+                    
+2023-07-21 10:11:08 [INFO] 
+Code running:
+```
+gender_distance = df[['Gender', 'Distance From Home']]
+gender_distance_mean = gender_distance.groupby('Gender')['Distance From Home'
+    ].mean()
+plt.hist(gender_distance['Distance From Home'], bins=10, alpha=0.5, label='All'
+    )
+plt.hist(gender_distance[gender_distance['Gender'] == 'Male'][
+    'Distance From Home'], bins=10, alpha=0.5, label='Male')
+plt.hist(gender_distance[gender_distance['Gender'] == 'Female'][
+    'Distance From Home'], bins=10, alpha=0.5, label='Female')
+plt.xlabel('Distance From Home')
+plt.ylabel('Frequency')
+plt.title('Gender wise Distance From Home')
+plt.legend()
+plt.show()
+plt.close('all')
+```
+2023-07-21 10:11:24 [INFO] Answer: None
+2023-07-21 10:11:24 [INFO] Executed in: 33.8301260471344s
+2023-07-21 10:12:05 [INFO] Question: Plot a histogram for Gender wise Distance From Home
+2023-07-21 10:12:05 [INFO] Running PandasAI with openai LLM...
+2023-07-21 10:12:05 [INFO] Prompt ID: 96f4491a-f152-484a-8eea-d26432875cf3
+2023-07-21 10:12:05 [INFO] Using cached response
+2023-07-21 10:12:05 [INFO] 
+Code running:
+```
+gender_distance = df[['Gender', 'Distance From Home']]
+gender_distance_mean = gender_distance.groupby('Gender')['Distance From Home'
+    ].mean()
+plt.hist(gender_distance['Distance From Home'], bins=10, alpha=0.5, label='All'
+    )
+plt.hist(gender_distance[gender_distance['Gender'] == 'Male'][
+    'Distance From Home'], bins=10, alpha=0.5, label='Male')
+plt.hist(gender_distance[gender_distance['Gender'] == 'Female'][
+    'Distance From Home'], bins=10, alpha=0.5, label='Female')
+plt.xlabel('Distance From Home')
+plt.ylabel('Frequency')
+plt.title('Gender wise Distance From Home')
+plt.legend()
+plt.show()
+plt.close('all')
+```
+2023-07-21 10:12:10 [INFO] Answer: None
+2023-07-21 10:12:10 [INFO] Executed in: 5.4995598793029785s
+2023-07-21 10:28:41 [INFO] C:\Users\dhana\coding\Personal Projects\DiversifyNow\diversifynow\core\views.py changed, reloading.

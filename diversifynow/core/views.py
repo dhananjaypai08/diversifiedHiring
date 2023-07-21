@@ -16,6 +16,7 @@ import numpy as np
 import plotly.graph_objects as go
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.linear_model import LogisticRegression
+from functools import lru_cache
 
 
 
@@ -101,7 +102,7 @@ def logout(request):
 #     msg["title"] = "Dashboard"
 #     return render(request, 'home.html',msg)
 
-
+@lru_cache()
 def home(request):
     if not request.session.get('user_id'): return redirect(index)
     msg = {"title": "Dashboard", "description": "This is the landing Page"}
@@ -348,37 +349,39 @@ def custom(request):
     changed = False
     if request.method == 'POST':
         csv_file = request.FILES.get('data')
-        num_rows = request.POST.get('num_rows')
-        imported_data = None
-        button = False
-        edit = False
+        #num_rows = request.POST.get('num_rows')
+        #imported_data = None
+        #button = False
+        #edit = False
         if csv_file:
             imported_data = pd.read_csv(csv_file)
-            imported_data.to_csv('media/custom.csv')
+            imported_data.drop(columns=imported_data.columns[0], axis=1, inplace=True)
+            imported_data.to_csv('static/HR.csv')
             button = True
-        elif num_rows:
-            num_rows = int(num_rows)
-            df = pd.read_csv('media/custom.csv')
-            columns = list(df.columns)
-            columns.pop(0)
-            num_columns = len(columns)
-            # data = [request.POST.getlist(f'data[{i}]') for i in range(num_rows)]
-            data = []
-            for i in range(num_rows):
-                lst = request.POST.getlist(f'data[{i}]')
-                lst.pop(0)
-                data.append(lst)
-            imported_data = pd.DataFrame(data, columns=columns)
-            imported_data.to_csv('media/custom.csv')
-            changed=True
-            button=True
-        else:
-            imported_data = pd.read_csv('media/custom.csv')
-            edit = True
-            import_form = False
-        msg['imported_data'] = imported_data   
-        msg['button'] = button
-        msg['edit'] = edit
-        msg['changed'] = changed
+            return redirect(home)
+        # elif num_rows:
+        #     num_rows = int(num_rows)
+        #     df = pd.read_csv('static/HR.csv')
+        #     columns = list(df.columns)
+        #     columns.pop(0)
+        #     num_columns = len(columns)
+        #     # data = [request.POST.getlist(f'data[{i}]') for i in range(num_rows)]
+        #     data = []
+        #     for i in range(num_rows):
+        #         lst = request.POST.getlist(f'data[{i}]')
+        #         lst.pop(0)
+        #         data.append(lst)
+        #     imported_data = pd.DataFrame(data, columns=columns)
+        #     imported_data.to_csv('media/custom.csv')
+        #     changed=True
+        #     button=True
+        # else:
+        #     imported_data = pd.read_csv('media/custom.csv')
+        #     edit = True
+        #     import_form = False
+        # msg['imported_data'] = imported_data   
+        # msg['button'] = button
+        # msg['edit'] = edit
+        # msg['changed'] = changed
     msg['import_form'] = import_form      
     return render(request, 'custom.html', msg)
